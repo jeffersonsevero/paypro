@@ -1,5 +1,5 @@
 <x-guest-layout>
-    <form method="POST" action="{{ route('register') }}">
+    <form method="POST" action="{{ route('register') }}" x-data="{}">
         @csrf
 
         <!-- Name -->
@@ -22,7 +22,7 @@
         <!-- CPF -->
         <div class="mt-4">
             <x-input-label for="cpf" value="CPF" />
-            <x-text-input id="cpf" class="block mt-1 w-full" type="text" name="cpf" :value="old('cpf')"
+            <x-text-input x-mask="999.999.999-99"  id="cpf" class="block mt-1 w-full" type="text" name="cpf" :value="old('cpf')"
                 required autocomplete="username" />
             <x-input-error :messages="$errors->get('cpf')" class="mt-2" />
         </div>
