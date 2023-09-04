@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Services\Asaas\AsaasService;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,6 +16,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+
+	$service = new AsaasService();
+	$result = $service->customers()->post([
+		'name' => 'Sara',
+		'cpfCnpj' => '56878966000'
+	]);
+
+	dd($result);
+
     return view('welcome');
 });
 
