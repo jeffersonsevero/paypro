@@ -1,22 +1,21 @@
 <?php
+
 namespace App\Services\Asaas\Endpoints;
 
 use App\Services\Asaas\Entities\Customer;
+use App\Services\Asaas\Requests\{CreateCustomerDTO, CreateCustomerRequest};
 
 class Customers extends BaseEndpoint
 {
-
-
-    public function post(array $data)
+    public function post(CreateCustomerDTO $data)
     {
-		dd($this->service->api->post('/customers', $data)->json());
-		dd($this->service->api->post('/customers', $data)->json('data'));
-        $test = $this->transform(
-            $this->service->api->post('/customers')->json($data),
+        $json = $this->service->api->post('/customers', $data->toArray())->json();
+
+        return $this->transform(
+            $json,
             Customer::class
-        )->first();
+        );
 
     }
-
 
 }
