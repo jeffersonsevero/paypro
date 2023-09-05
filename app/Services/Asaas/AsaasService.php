@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Services\Asaas;
 
 use App\Services\Asaas\Endpoints\HasCustomers;
@@ -7,7 +8,6 @@ use Illuminate\Support\Facades\Http;
 
 class AsaasService
 {
-
     use HasCustomers;
 
     public PendingRequest $api;
@@ -15,9 +15,9 @@ class AsaasService
     public function __construct()
     {
         $this->api = Http::withHeaders([
-            'Accept' => 'application/json',
+            'Accept'       => 'application/json',
             'Content-Type' => 'application/json',
-            'access_token' => config('services.asaas.key')
+            'access_token' => config('services.asaas.key'),
         ])->baseUrl(config('services.asaas.url'));
     }
 
