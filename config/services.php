@@ -33,7 +33,7 @@ return [
 
     'asaas' => [
         'key' => env('ASAAS_API_KEY'),
-        'url' => env('ASAAS_BASE_API_URL')
-    ]
+        'url' => env('ASAAS_BASE_API_URL'),
+    ],
 
 ];
