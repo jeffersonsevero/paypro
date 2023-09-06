@@ -9,14 +9,15 @@ class PixQrCode
     public ?string $encodedImage;
 
     public ?string $payload;
+
     public ?string $expirationDate;
 
     public function __construct(mixed $data)
     {
-        $this->success    = data_get($data, 'success');
-        $this->encodedImage = data_get($data, 'encodedImage');
-        $this->payload     = data_get($data, 'payload');
-        $this->expirationDate       = data_get($data, 'expirationDate');
+        $this->success        = data_get($data, 'success');
+        $this->encodedImage   = data_get($data, 'encodedImage');
+        $this->payload        = data_get($data, 'payload');
+        $this->expirationDate = data_get($data, 'expirationDate');
     }
 
 }

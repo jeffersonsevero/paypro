@@ -15,8 +15,8 @@ it('should create customer in payment gateway', function () {
     ]), 200);
 
     $user = User::factory()->createOne([
-        'name'     => 'Name test',
-        'cpf'      => '00000000000',
+        'name' => 'Name test',
+        'cpf'  => '00000000000',
     ]);
 
     (new CreateCustomerPaymentGateway())->handle(new Registered($user));

@@ -1,10 +1,7 @@
 <?php
 
-use App\Http\Controllers\PaymentController;
-use App\Http\Controllers\ProfileController;
-use App\Services\Asaas\AsaasService;
-use App\Services\Asaas\Requests\CreateChargeDTO;
-use App\Services\Asaas\Requests\CreateChargeWithBilletDTO;
+use App\Http\Controllers\{PaymentController, ProfileController};
+use App\Services\Asaas\Requests\{CreateChargeDTO, CreateChargeWithBilletDTO};
 use Illuminate\Support\Facades\Route;
 
 /*

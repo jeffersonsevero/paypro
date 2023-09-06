@@ -28,7 +28,7 @@ class CreateCustomerPaymentGateway
         $user = $event->user;
 
         if(is_null($user->customer)) {
-			/** @var Customer */
+            /** @var Customer */
             $customer       = (new AsaasService())->customers()->post(new CreateCustomerDTO($user->name, $user->cpf));
             $user->customer = $customer->id;
             $user->save();
