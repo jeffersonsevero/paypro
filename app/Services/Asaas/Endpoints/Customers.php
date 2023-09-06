@@ -7,14 +7,14 @@ use App\Services\Asaas\Requests\{CreateCustomerDTO, CreateCustomerRequest};
 
 class Customers extends BaseEndpoint
 {
-    public function post(CreateCustomerDTO $data)
+    public function post(CreateCustomerDTO $data): Customer
     {
         $json = $this->service->api->post('/customers', $data->toArray())->json();
 
         return $this->transform(
             $json,
             Customer::class
-        );
+        )->first();
 
     }
 
