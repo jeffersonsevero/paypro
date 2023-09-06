@@ -9,7 +9,8 @@ class CreateCustomerDTO
 
     }
 
-    public function toArray()
+    /** @return array<string> */
+    public function toArray(): array
     {
         return [
             'name'    => $this->name,
