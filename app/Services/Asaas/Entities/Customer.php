@@ -4,13 +4,13 @@ namespace App\Services\Asaas\Entities;
 
 class Customer
 {
-    public string $id;
+    public ?string $id;
 
-    public string $name;
+    public ?string $name;
 
-    public string $cpfCnpj;
+    public ?string $cpfCnpj;
 
-    public function __construct($data)
+    public function __construct(mixed $data)
     {
         $this->id      = data_get($data, 'id');
         $this->name    = data_get($data, 'name');
