@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * App\Models\User
+ * @property string $name
+ * @property string $cpf
+ * @property string $customer
+ */
+
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -26,6 +33,7 @@ class User extends Authenticatable
         'email',
         'password',
         'cpf',
+        'customer',
     ];
 
     /**
