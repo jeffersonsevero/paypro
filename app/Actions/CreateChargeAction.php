@@ -9,9 +9,11 @@ class CreateChargeAction
 
     }
 
-    public function handle()
+    public function handle(): self
     {
-
+		logger($this->paymentType);
+		logger($this->price);
+		return $this;
     }
 
 }

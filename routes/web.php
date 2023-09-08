@@ -1,7 +1,9 @@
 <?php
 
-use App\Http\Controllers\{PaymentController, ProfileController};
-use App\Services\Asaas\Requests\{CreateChargeDTO, CreateChargeWithBilletDTO};
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\ProfileController;
+use App\Services\Asaas\Requests\CreateChargeDTO;
+use App\Services\Asaas\Requests\CreateChargeWithBilletDTO;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,6 +31,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::post('payments', [PaymentController::class, 'handle'])->name('payment.handle');
+    Route::get('payment-success', [PaymentController::class, 'success'])->name('payment.success');
 });
 
 require __DIR__ . '/auth.php';

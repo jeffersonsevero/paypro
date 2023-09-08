@@ -8,8 +8,10 @@ use App\Services\Asaas\Requests\{CreateChargeDTO, CreateChargeWithBilletDTO, Cre
 
 class Payments extends BaseEndpoint
 {
+	/** @var array<string> */
     protected ?array $creditCard = [];
 
+	/** @var array<string> */
     protected ?array $holderInfos = [];
 
     public function withCreditCard(
@@ -66,7 +68,7 @@ class Payments extends BaseEndpoint
         }
         $json = $this->service->api->post('/payments', $data)->json();
 
-        if($json['errors']) {
+        if(isset($json['errors'])) {
             throw new ErrorOnPaymentException($json['errors'][0]['description'], 401);
         }
 
