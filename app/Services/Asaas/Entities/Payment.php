@@ -19,6 +19,7 @@ class Payment
     public ?string $status;
 
     public ?int $value;
+    public ?string $qrCodeURL;
 
     public function __construct(mixed $data)
     {
@@ -30,6 +31,7 @@ class Payment
         $this->status      = data_get($data, 'status');
         $this->id          = data_get($data, 'id');
         $this->errors      = data_get($data, 'errors');
+        $this->qrCodeURL = data_get($data, 'QrCodeURL');
     }
 
 }

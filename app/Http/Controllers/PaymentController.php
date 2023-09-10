@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Actions\CreatePaymentWithBilletAction;
+use App\Actions\CreatePaymentWithPixAction;
 use App\Http\Requests\CreatePaymentRequest;
 use App\Services\Asaas\AsaasService;
 use App\Services\Asaas\Entities\Payment;
@@ -18,6 +19,9 @@ class PaymentController extends Controller
             $payment = (new CreatePaymentWithBilletAction($request->get('price')))->handle();
             return redirect()->to(route('payment.success', ['payment' => $payment]));
 
+        } elseif($request->get('payment-type') === 'pix') {
+            $payment = (new CreatePaymentWithPixAction($request->get('price')))->handle();
+            return redirect()->to(route('payment.success', ['payment' => $payment]));
         }
     }
 
