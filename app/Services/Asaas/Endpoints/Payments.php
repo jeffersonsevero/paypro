@@ -8,10 +8,10 @@ use App\Services\Asaas\Requests\{CreateChargeDTO, CreateChargeWithBilletDTO, Cre
 
 class Payments extends BaseEndpoint
 {
-	/** @var array<string> */
+    /** @var array<string> */
     protected ?array $creditCard = [];
 
-	/** @var array<string> */
+    /** @var array<string> */
     protected ?array $holderInfos = [];
 
     public function withCreditCard(

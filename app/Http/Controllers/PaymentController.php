@@ -2,12 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Actions\CreatePaymentWithBilletAction;
-use App\Actions\CreatePaymentWithPixAction;
+use App\Actions\{CreatePaymentWithBilletAction, CreatePaymentWithPixAction};
 use App\Http\Requests\CreatePaymentRequest;
-use App\Services\Asaas\AsaasService;
-use App\Services\Asaas\Entities\Payment;
-use App\Services\Asaas\Requests\CreateChargeDTO;
 use Illuminate\Contracts\View\View;
 
 class PaymentController extends Controller
@@ -17,14 +13,15 @@ class PaymentController extends Controller
         if($request->get('payment-type') === 'billet') {
 
             $payment = (new CreatePaymentWithBilletAction($request->get('price')))->handle();
+
             return redirect()->to(route('payment.success', ['payment' => $payment]));
 
         } elseif($request->get('payment-type') === 'pix') {
             $payment = (new CreatePaymentWithPixAction($request->get('price')))->handle();
+
             return redirect()->to(route('payment.success', ['payment' => $payment]));
         }
     }
-
 
     public function success(): View
     {
