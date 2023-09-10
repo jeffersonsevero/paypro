@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Actions\{CreatePaymentWithBilletAction, CreatePaymentWithPixAction};
+use App\Actions\CreatePaymentWithBilletAction;
+use App\Actions\CreatePaymentWithPixAction;
 use App\Http\Requests\CreatePaymentRequest;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 
 class PaymentController extends Controller
 {
-    public function handle(CreatePaymentRequest $request)
+    public function handle(CreatePaymentRequest $request): RedirectResponse
     {
         if($request->get('payment-type') === 'billet') {
 
