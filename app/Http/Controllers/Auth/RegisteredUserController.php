@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use App\Services\Asaas\Entities\{Customer, Payment};
+use Exception;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\{RedirectResponse, Request};
 use Illuminate\Support\Facades\{Auth, DB, Hash};
@@ -47,6 +48,9 @@ class RegisteredUserController extends Controller
 
             return redirect()->back();
         }
+		catch(Exception $e){
+			logger()->critical($e->getMessage());
+		}
 
     }
 }

@@ -1,1 +1,1 @@
-<img class="w-52 rounded-full" src="{{ url('/paypro.png') }}" alt="">
+<img  class="w-40 rounded-full" src="{{ url('/paypro.png') }}" alt="">

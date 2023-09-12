@@ -16,7 +16,6 @@ class BaseEndpoint
 
     protected function transform(mixed $json, string $entity): Collection
     {
-
         return collect([$json])->map(fn ($data) => new $entity($data));
 
     }

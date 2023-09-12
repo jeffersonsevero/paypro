@@ -10,7 +10,7 @@ class CreatePaymentWithCardAction
 {
     public function __construct(protected array $payload)
     {
-
+		
     }
 
     public function handle()

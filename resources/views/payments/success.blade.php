@@ -35,8 +35,16 @@
                                     Gerar QR Code
                                 </button>
 
-                                <x-flow-modal title='Seu QRCode já está disponível'>
-                                    <img src="{{ $payment['qrCodeURL'] }}" alt="">
+                                <x-flow-modal class="flex" title='Seu QRCode já está disponível'>
+                                    <div class="flex flex-col" x-data="{ content: '{{ $payment['payload'] }}' }">
+                                        <img src="{{ $payment['qrCodeURL'] }}" alt="">
+
+
+                                        <button x-on:click="navigator.clipboard.writeText(content)"
+                                            class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full">Clique
+                                            aqui para pegar código</button>
+                                    </div>
+
                                 </x-flow-modal>
                             @endif
 
@@ -53,6 +61,5 @@
             </div>
         </div>
 
-        <script></script>
 
     </x-app-layout>

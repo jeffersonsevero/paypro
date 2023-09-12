@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Actions\{CreatePaymentWithBilletAction, CreatePaymentWithCardAction, CreatePaymentWithPixAction};
+use App\Actions\CreatePaymentWithBilletAction;
+use App\Actions\CreatePaymentWithCardAction;
+use App\Actions\CreatePaymentWithPixAction;
 use App\Exceptions\ErrorOnPaymentException;
-use App\Http\Requests\{CreatePaymentRequest, HandlePaymentWithCardRequest};
+use App\Http\Requests\CreatePaymentRequest;
+use App\Http\Requests\HandlePaymentWithCardRequest;
 use App\Services\Asaas\Entities\Payment;
 use Exception;
 use Illuminate\Contracts\View\View;
@@ -15,18 +18,19 @@ class PaymentController extends Controller
     public function handle(CreatePaymentRequest $request): RedirectResponse
     {
 
+        $value = toOnlyDigits($request->get('price'));
         if($request->get('payment-type') === 'billet') {
 
-            $payment = (new CreatePaymentWithBilletAction($request->get('price')))->handle();
+            $payment = (new CreatePaymentWithBilletAction($value))->handle();
 
             return redirect()->to(route('payment.success', ['payment' => $payment]));
 
         } elseif($request->get('payment-type') === 'pix') {
-            $payment = (new CreatePaymentWithPixAction($request->get('price')))->handle();
+            $payment = (new CreatePaymentWithPixAction($value))->handle();
 
             return redirect()->to(route('payment.success', ['payment' => $payment]));
         } elseif($request->get('payment-type') === 'card') {
-            return redirect()->to(route('payment.checkout', ['value' => $request->get('price')]));
+            return redirect()->to(route('payment.checkout', ['value' => $value]));
         }
     }
 
@@ -48,7 +52,6 @@ class PaymentController extends Controller
             $serielize->prepend($name, 'name');
             /** @var Payment */
             $payment = (new CreatePaymentWithCardAction($serielize->toArray()))->handle();
-
             if($payment->id) {
                 toastr()->success('Cobrança efetuada com sucesso!');
 
