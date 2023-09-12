@@ -1,8 +1,17 @@
 <?php
 
+/**
+ * App\Models\User
+ * @property string $name
+ * @property string $cpf
+ * @property string $customer
+ */
+
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -23,6 +32,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'cpf',
+        'customer',
     ];
 
     /**
@@ -43,5 +54,15 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password'          => 'hashed',
+        'cpf'               => 'string',
     ];
+
+    protected function cpf(): Attribute
+    {
+        return Attribute::make(
+            get: fn (string $value) => toCpfFormat($value),
+            set: fn (string $value) => toCpfClear($value)
+        );
+    }
+
 }

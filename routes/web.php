@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\{PaymentController, ProfileController};
+use App\Services\Asaas\Requests\{CreateChargeDTO, CreateChargeWithBilletDTO};
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +18,26 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::post('payments', [PaymentController::class, 'handle'])->name('payment.handle');
+    Route::post('credit-card', [PaymentController::class, 'paymentWithCreditCard'])
+        ->name('credit.card');
+
+    Route::get('payment-success', [PaymentController::class, 'success'])
+        ->name('payment.success')
+        ->middleware('haspayment');
+
+    Route::get('payment-checkout', [PaymentController::class, 'checkout'])
+        ->name('payment.checkout');
+});
+
+require __DIR__ . '/auth.php';

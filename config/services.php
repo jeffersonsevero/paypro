@@ -31,4 +31,9 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'asaas' => [
+        'key' => env('ASAAS_API_KEY'),
+        'url' => env('ASAAS_BASE_API_URL'),
+    ],
+
 ];

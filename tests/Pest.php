@@ -1,5 +1,9 @@
 <?php
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Http;
+use Tests\TestCase;
+
 /*
 |--------------------------------------------------------------------------
 | Test Case
@@ -11,10 +15,7 @@
 |
 */
 
-uses(
-    Tests\TestCase::class,
-    // Illuminate\Foundation\Testing\RefreshDatabase::class,
-)->in('Feature');
+uses(TestCase::class, RefreshDatabase::class)->in('Feature');
 
 /*
 |--------------------------------------------------------------------------
@@ -45,4 +46,11 @@ expect()->extend('toBeOne', function () {
 function something()
 {
     // ..
+}
+
+function mockResponse(mixed $body, int $statusCode)
+{
+    Http::fakeSequence()
+        ->push($body, $statusCode)
+        ->whenEmpty(Http::response());
 }
