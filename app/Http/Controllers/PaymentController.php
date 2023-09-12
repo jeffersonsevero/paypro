@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Actions\CreatePaymentWithBilletAction;
-use App\Actions\CreatePaymentWithCardAction;
-use App\Actions\CreatePaymentWithPixAction;
+use App\Actions\{CreatePaymentWithBilletAction, CreatePaymentWithCardAction, CreatePaymentWithPixAction};
 use App\Exceptions\ErrorOnPaymentException;
-use App\Http\Requests\CreatePaymentRequest;
-use App\Http\Requests\HandlePaymentWithCardRequest;
+use App\Http\Requests\{CreatePaymentRequest, HandlePaymentWithCardRequest};
 use App\Services\Asaas\Entities\Payment;
 use Exception;
 use Illuminate\Contracts\View\View;
@@ -19,6 +16,7 @@ class PaymentController extends Controller
     {
 
         $value = toOnlyDigits($request->get('price'));
+
         if($request->get('payment-type') === 'billet') {
 
             $payment = (new CreatePaymentWithBilletAction($value))->handle();
@@ -52,6 +50,7 @@ class PaymentController extends Controller
             $serielize->prepend($name, 'name');
             /** @var Payment */
             $payment = (new CreatePaymentWithCardAction($serielize->toArray()))->handle();
+
             if($payment->id) {
                 toastr()->success('Cobrança efetuada com sucesso!');
 

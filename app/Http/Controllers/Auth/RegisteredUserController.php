@@ -47,10 +47,9 @@ class RegisteredUserController extends Controller
             toastr()->error($exception->getMessage());
 
             return redirect()->back();
+        } catch(Exception $e) {
+            logger()->critical($e->getMessage());
         }
-		catch(Exception $e){
-			logger()->critical($e->getMessage());
-		}
 
     }
 }
