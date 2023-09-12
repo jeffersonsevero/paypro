@@ -39,7 +39,8 @@ class CreatePaymentWithPixAction
             return $payment;
 
         } catch(ErrorOnPaymentException $exception) {
-
+			toastr()->error($exception->getMessage());
+			return redirect()->back();
         } catch(Exception $exception) {
 
         }
