@@ -1,11 +1,8 @@
 <?php
 
 use App\Providers\RouteServiceProvider;
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Support\Facades\Event;
 
-use function Pest\Laravel\assertDatabaseHas;
-use function Pest\Laravel\assertDatabaseMissing;
+use function Pest\Laravel\{assertDatabaseHas, assertDatabaseMissing};
 
 test('registration screen can be rendered', function () {
     $response = $this->get('/register');
@@ -16,28 +13,28 @@ test('registration screen can be rendered', function () {
 test('new users can register', function () {
 
     mockResponse([
-            "object" => "customer",
-            "id" => "cus_13bFHumeyglN",
-            "dateCreated" => "08/03/2017",
-            "name" => "Test User",
-            "email" => "test@example.com",
-            "phone" => "4738010919",
-            "mobilePhone" => "4799376637",
-            "address" => "Av. Paulista",
-            "addressNumber" => "150",
-            "complement" => "Sala 201",
-            "province" => "Centro",
-            "postalCode" => "01310000",
-            "cpfCnpj" => "00000000000",
-            "personType" => "FISICA",
-            "deleted" => false,
-            "additionalEmails" => "marcelo.almeida2@gmail.com,marcelo.almeida3@gmail.com",
-            "externalReference" => "12987382",
-            "notificationDisabled" => false,
-            "city" => 15873,
-            "state" => "SP",
-            "country" => "Brasil",
-            "observations" => "ótimo pagador, nenhum problema até o momento"
+        "object"               => "customer",
+        "id"                   => "cus_13bFHumeyglN",
+        "dateCreated"          => "08/03/2017",
+        "name"                 => "Test User",
+        "email"                => "test@example.com",
+        "phone"                => "4738010919",
+        "mobilePhone"          => "4799376637",
+        "address"              => "Av. Paulista",
+        "addressNumber"        => "150",
+        "complement"           => "Sala 201",
+        "province"             => "Centro",
+        "postalCode"           => "01310000",
+        "cpfCnpj"              => "00000000000",
+        "personType"           => "FISICA",
+        "deleted"              => false,
+        "additionalEmails"     => "marcelo.almeida2@gmail.com,marcelo.almeida3@gmail.com",
+        "externalReference"    => "12987382",
+        "notificationDisabled" => false,
+        "city"                 => 15873,
+        "state"                => "SP",
+        "country"              => "Brasil",
+        "observations"         => "ótimo pagador, nenhum problema até o momento",
 
     ], 200);
 
@@ -49,7 +46,7 @@ test('new users can register', function () {
     ]);
 
     $this->assertAuthenticated();
-    assertDatabaseHas('users', ['cpf' => '00000000000' ]);
+    assertDatabaseHas('users', ['cpf' => '00000000000']);
     $response->assertRedirect(RouteServiceProvider::HOME);
 });
 
@@ -72,6 +69,5 @@ it('should return error when cpf is invalid', function () {
         'password' => 'password',
     ]);
     assertDatabaseMissing('users', ['email' => 'test@example.com']);
-
 
 });
