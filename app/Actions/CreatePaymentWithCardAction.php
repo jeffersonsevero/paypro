@@ -15,8 +15,6 @@ class CreatePaymentWithCardAction
 
     public function handle()
     {
-
-        /** @var Payment */
         $payment = (new AsaasService())->payments()
             ->withCreditCard(
                 $this->payload['name'],
