@@ -7,6 +7,13 @@ if (!function_exists('toCpfClear')) {
     }
 }
 
+if (!function_exists('toOnlyDigits')) {
+    function toOnlyDigits(string $string): string
+    {
+        return preg_replace('/\D/', '', $string);
+    }
+}
+
 /**
  * @param string
  * @return string
