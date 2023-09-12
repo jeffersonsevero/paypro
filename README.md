@@ -77,6 +77,24 @@ O projeto vai estar disponível na porta definida no arquivo .env e você poder�
 
 ```
 
+### Criar link simbólico para pasta public
+
+```shell
+./vendor/bin/sail artisan storage:link
+
+```
+
+
+
+### Instalar/Buildar depedências de Javascript
+
+```shell
+./vendor/bin/sail npm install
+./vendor/bin/sail npm run build
+
+
+```
+
 
 
 
