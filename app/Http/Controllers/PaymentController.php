@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Actions\CreatePaymentWithBilletAction;
-use App\Actions\CreatePaymentWithCardAction;
-use App\Actions\CreatePaymentWithPixAction;
+use App\Actions\{CreatePaymentWithBilletAction, CreatePaymentWithCardAction, CreatePaymentWithPixAction};
 use App\Exceptions\ErrorOnPaymentException;
-use App\Http\Requests\CreatePaymentRequest;
-use App\Http\Requests\HandlePaymentWithCardRequest;
+use App\Http\Requests\{CreatePaymentRequest, HandlePaymentWithCardRequest};
 use App\Services\Asaas\Entities\Payment;
 use Exception;
 use Illuminate\Contracts\View\View;
@@ -44,7 +41,7 @@ class PaymentController extends Controller
     {
         try {
 
-            $name = $request->get('name');
+            $name      = $request->get('name');
             $serielize = collect($request->all())->except('name')->map(function ($data) {
                 return toOnlyDigits($data);
             });
@@ -56,11 +53,13 @@ class PaymentController extends Controller
 
             if($payment->id) {
                 toastr()->success('Cobrança efetuada com sucesso!');
+
                 return redirect()->to(route('dashboard'));
             }
 
         } catch(ErrorOnPaymentException $exception) {
             toastr()->error($exception->getMessage());
+
             return redirect()->back();
         } catch(Exception $exception) {
             toastr()->error('Ooops, ocorreu algum erro interno');
