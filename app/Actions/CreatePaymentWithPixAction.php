@@ -34,6 +34,7 @@ class CreatePaymentWithPixAction
             Storage::disk('public')->put($imageName, base64_decode($pixQrCode->encodedImage));
             $url                = url('/storage/' . $imageName);
             $payment->qrCodeURL = $url;
+            $payment->payload   = $pixQrCode->payload;
 
             return $payment;
 

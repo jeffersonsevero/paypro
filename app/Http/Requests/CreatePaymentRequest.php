@@ -22,7 +22,7 @@ class CreatePaymentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'price'        => ['required', 'numeric'],
+            'price'        => ['required', 'string'],
             'payment-type' => ['required', 'string',  'in:billet,pix,card'],
         ];
     }

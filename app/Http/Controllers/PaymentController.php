@@ -15,18 +15,20 @@ class PaymentController extends Controller
     public function handle(CreatePaymentRequest $request): RedirectResponse
     {
 
+        $value = toOnlyDigits($request->get('price'));
+
         if($request->get('payment-type') === 'billet') {
 
-            $payment = (new CreatePaymentWithBilletAction($request->get('price')))->handle();
+            $payment = (new CreatePaymentWithBilletAction($value))->handle();
 
             return redirect()->to(route('payment.success', ['payment' => $payment]));
 
         } elseif($request->get('payment-type') === 'pix') {
-            $payment = (new CreatePaymentWithPixAction($request->get('price')))->handle();
+            $payment = (new CreatePaymentWithPixAction($value))->handle();
 
             return redirect()->to(route('payment.success', ['payment' => $payment]));
         } elseif($request->get('payment-type') === 'card') {
-            return redirect()->to(route('payment.checkout', ['value' => $request->get('price')]));
+            return redirect()->to(route('payment.checkout', ['value' => $value]));
         }
     }
 

@@ -22,6 +22,8 @@ class Payment
 
     public ?string $qrCodeURL;
 
+    public ?string $payload;
+
     public function __construct(mixed $data)
     {
         $this->customer    = data_get($data, 'customer');
@@ -33,6 +35,7 @@ class Payment
         $this->id          = data_get($data, 'id');
         $this->errors      = data_get($data, 'errors');
         $this->qrCodeURL   = data_get($data, 'QrCodeURL');
+        $this->payload     = data_get($data, 'payload');
     }
 
 }

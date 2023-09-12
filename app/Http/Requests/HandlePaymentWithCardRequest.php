@@ -23,7 +23,7 @@ class HandlePaymentWithCardRequest extends FormRequest
     {
         return [
             'name'         => ['required', 'string', 'min:8'],
-            'number'       => ['required', 'string', 'max:17'],
+            'number'       => ['required', 'string', 'max:20'],
             'cep'          => ['required', 'string', 'min:9', 'max:9'],
             'expiry-month' => ['required', 'string'],
             'expiry-year'  => ['required', 'string'],

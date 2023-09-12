@@ -21,7 +21,8 @@ class RegisterUserAction
     {
         /** @var Customer */
         $response = (new AsaasService())->customers()->post(new CreateCustomerDTO(name: $this->payload['name'], cpf: $this->payload['cpf']));
-        $user     = User::query()->create([
+
+        $user = User::query()->create([
             'name'     => $this->payload['name'],
             'email'    => $this->payload['email'],
             'cpf'      => $this->payload['cpf'],
@@ -31,7 +32,7 @@ class RegisterUserAction
 
         event(new Registered($user));
 
-        Auth::login($user);
+        auth()->login($user);
     }
 
 }

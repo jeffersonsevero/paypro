@@ -1,5 +1,5 @@
 <div>
-    <h1 class="text-3xl text-purple-900 text-center">Selecione o valor a ser pago e forma de pagamento
+    <h1 class="text-3xl text-blue-700 text-center">Selecione o valor a ser pago e forma de pagamento
     </h1>
 
     <form action="{{ route('payment.handle') }}" method="post" x-data={}>
@@ -7,7 +7,7 @@
         <div class="mt-4 grid grid-cols-1 gap-5 md:grid-cols-2">
             <div>
                 <x-input-label class="text-lg" for="price" value="Informe o valor" />
-                <x-text-input x-mask:dynamic="$money($input, ',')" id="price" class="block mt-1 w-full" type="text"
+                <x-text-input  id="price" class="block mt-1 w-full" type="text"
                     name="price" :value="old('price')" />
                 <x-input-error :messages="$errors->get('price')" class="mt-2" />
             </div>
