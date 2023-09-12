@@ -25,7 +25,6 @@ class CreatePaymentWithBilletAction
                 value: $this->value,
                 dueDate: now()->addDays(2)->format('Y-m-d')
             ));
-
             return $payment;
 
         } catch(ErrorOnPaymentException $exception) {
