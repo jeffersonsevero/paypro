@@ -67,6 +67,7 @@ class Payments extends BaseEndpoint
             $data['creditCardHolderInfo'] = $this->holderInfos;
         }
         $json = $this->service->api->post('/payments', $data)->json();
+
         if(isset($json['errors'])) {
             throw new ErrorOnPaymentException($json['errors'][0]['description'], 401);
         }
