@@ -29,7 +29,15 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::post('payments', [PaymentController::class, 'handle'])->name('payment.handle');
-    Route::get('payment-success', [PaymentController::class, 'success'])->name('payment.success');
+    Route::post('credit-card', [PaymentController::class, 'paymentWithCreditCard'])
+        ->name('credit.card');
+
+    Route::get('payment-success', [PaymentController::class, 'success'])
+        ->name('payment.success')
+        ->middleware('haspayment');
+
+    Route::get('payment-checkout', [PaymentController::class, 'checkout'])
+        ->name('payment.checkout');
 });
 
 require __DIR__ . '/auth.php';
