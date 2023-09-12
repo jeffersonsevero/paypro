@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Actions\RegisterUserAction;
+use App\Exceptions\ErrorOnCreateCustomerException;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
-use Illuminate\Auth\Events\Registered;
+use App\Services\Asaas\Entities\{Customer, Payment};
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\{RedirectResponse, Request};
-use Illuminate\Support\Facades\{Auth, Hash};
+use Illuminate\Support\Facades\{Auth, DB, Hash};
 use Illuminate\Validation\Rules;
 
 class RegisteredUserController extends Controller
@@ -26,7 +28,7 @@ class RegisteredUserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request): RedirectResponse
+    public function store(Request $request)
     {
         $request->validate([
             'name'     => ['required', 'string', 'max:255'],
@@ -35,17 +37,16 @@ class RegisteredUserController extends Controller
             'password' => ['required', Rules\Password::defaults()],
         ]);
 
-        $user = User::query()->create([
-            'name'     => $request->get('name'),
-            'email'    => $request->get('email'),
-            'cpf'      => $request->get('cpf'),
-            'password' => Hash::make($request->get('password')),
-        ])->first();
+        try {
 
-        event(new Registered($user));
+            (new RegisterUserAction($request->all()))->handle();
 
-        Auth::login($user);
+            return redirect(RouteServiceProvider::HOME);
+        } catch(ErrorOnCreateCustomerException $exception) {
+            toastr()->error($exception->getMessage());
 
-        return redirect(RouteServiceProvider::HOME);
+            return redirect()->back();
+        }
+
     }
 }
