@@ -8,7 +8,7 @@
 
 
 
-        <div class="py-12" x-data="{ modalOpen: false }">
+        <div class="py-12">
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900 dark:text-gray-100">
@@ -23,29 +23,22 @@
 
 
                             @if ($payment['billingType'] === 'BOLETO')
-                                <a class="cursor-pointer" href="{{ $payment['bankSlipUrl'] }}" target="_blanl"> Clique
+                                <a class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full"
+                                    href="{{ $payment['bankSlipUrl'] }}" target="_blanl"> Clique
                                     aqui
                                     pra acessar seu boleto </a>
                             @endif
 
                             @if ($payment['billingType'] === 'PIX')
                                 <button data-modal-target="defaultModal" data-modal-toggle="defaultModal"
-                                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+                                    class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full">
                                     Gerar QR Code
                                 </button>
 
-                                <div>
-
-                                </div>
+                                <x-flow-modal title='Seu QRCode já está disponível'>
+                                    <img src="{{ $payment['qrCodeURL'] }}" alt="">
+                                </x-flow-modal>
                             @endif
-
-
-
-                            <x-flow-modal title='Seu QRCode já está disponível'>
-                                <img src="{{ $payment['qrCodeURL'] }}" alt="">
-                            </x-flow-modal>
-
-
 
 
                         </div>
