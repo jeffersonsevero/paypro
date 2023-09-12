@@ -54,7 +54,7 @@ class Payments extends BaseEndpoint
 
     private function creditCardFieldsAreFilled(): bool
     {
-        return sizeof($this->creditCard) > 1 && sizeof($this->holderInfos) > 1;
+        return count($this->creditCard) > 1 && count($this->holderInfos) > 1;
     }
 
     public function post(CreateChargeDTO $data): Payment

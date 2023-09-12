@@ -40,14 +40,12 @@ class PaymentController extends Controller
     public function paymentWithCreditCard(HandlePaymentWithCardRequest $request)
     {
         try {
-
             $name      = $request->get('name');
             $serielize = collect($request->all())->except('name')->map(function ($data) {
                 return toOnlyDigits($data);
             });
 
             $serielize->prepend($name, 'name');
-
             /** @var Payment */
             $payment = (new CreatePaymentWithCardAction($serielize->toArray()))->handle();
 
